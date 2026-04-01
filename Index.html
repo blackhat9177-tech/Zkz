@@ -2,76 +2,96 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Deposit Withdraw Buttons</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ambani Book</title>
 
 <style>
 body {
-    background: #7a3f00; /* brown background like image */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    margin: 0;
     font-family: Arial, sans-serif;
+    background: #7a3f00;
 }
 
-/* Container */
+/* Top Buttons Bar */
 .button-wrapper {
     display: flex;
-    gap: 30px;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #111;
+    z-index: 1000;
+    flex-wrap: wrap;
 }
 
-/* Common button style */
+/* Button Style */
 .btn {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 18px 40px;
-    border-radius: 12px;
-    font-size: 22px;
+    gap: 10px;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-size: 16px;
     font-weight: bold;
     color: white;
     text-transform: uppercase;
-    cursor: pointer;
-    transition: 0.3s ease;
+    text-decoration: none;
+    transition: 0.25s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* Deposit Button */
-.deposit {
-    background: linear-gradient(to right, #0bbf3f, #059b30);
+/* Hover */
+.btn:hover {
+    transform: translateY(-2px);
 }
 
-.deposit:hover {
-    background: linear-gradient(to right, #0dd44a, #07b83a);
+/* Colors */
+.deposit { background: linear-gradient(135deg, #0bbf3f, #059b30); }
+.withdraw { background: linear-gradient(135deg, #ff1a1a, #cc0000); }
+.upi { background: linear-gradient(135deg, #5f259f, #4a1d7a); }
+
+/* Iframe */
+.iframe-container {
+    margin-top: 80px;
+    width: 100%;
+    height: calc(100vh - 80px);
 }
 
-/* Withdraw Button */
-.withdraw {
-    background: linear-gradient(to right, #ff1a1a, #cc0000);
-}
-
-.withdraw:hover {
-    background: linear-gradient(to right, #ff3333, #e60000);
-}
-
-/* Icon Style */
-.icon {
-    font-size: 26px;
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 </style>
 
 </head>
 <body>
 
+<!-- Buttons -->
 <div class="button-wrapper">
-    <div class="btn deposit">
-        <span class="icon">💰</span>
-        Deposit
-    </div>
 
-    <div class="btn withdraw">
-        <span class="icon">💳</span>
-        Withdraw
-    </div>
+    <a href="https://wa.me/919685721765?text=Hello%20sir%20deposit" 
+       class="btn deposit" target="_blank">
+        💰 Deposit
+    </a>
+
+    <a href="https://wa.me/919685721765?text=Hello%20sir%20withdrawal" 
+       class="btn withdraw" target="_blank">
+        💳 Withdraw
+    </a>
+
+    <a href="upi://pay?pa=9685721765@paytm&pn=Admin&cu=INR&tn=Deposit" 
+       class="btn upi">
+        📲 Pay
+    </a>
+
+</div>
+
+<!-- Iframe -->
+<div class="iframe-container">
+    <iframe src="https://bnw247.com"></iframe>
 </div>
 
 </body>
