@@ -2,87 +2,76 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Header with Buttons</title>
+<title>Deposit Withdraw Buttons</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-    }
+body {
+    background: #7a3f00; /* brown background like image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
 
-    /* Header */
-    .header {
-        background: #111;
-        padding: 15px;
-        display: flex;
-        justify-content: center;
-      gap:15px;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-        
-    }
+/* Container */
+.button-wrapper {
+    display: flex;
+    gap: 30px;
+}
 
-    .btn {
-        padding: 10px 18px;
-        border: none;
-        border-radius: 6px;
-        color: #fff;
-        font-weight: bold;
-        cursor: pointer;
-        text-decoration: none;
-    }
+/* Common button style */
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 40px;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
 
-    .whatsapp {
-        background: #25D366;
-    }
+/* Deposit Button */
+.deposit {
+    background: linear-gradient(to right, #0bbf3f, #059b30);
+}
 
-    .deposit {
-        background: #007bff;
-    }
+.deposit:hover {
+    background: linear-gradient(to right, #0dd44a, #07b83a);
+}
 
-    .withdrawal {
-        background: #ff4d4d;
-    }
+/* Withdraw Button */
+.withdraw {
+    background: linear-gradient(to right, #ff1a1a, #cc0000);
+}
 
-    .btn:hover {
-        opacity: 0.85;
-    }
+.withdraw:hover {
+    background: linear-gradient(to right, #ff3333, #e60000);
+}
 
-    /* Iframe section */
-    .iframe-container {
-        margin-top:70px;
-        width: 100%;
-        height: calc(100vh - 80px);
-    }
-
-    iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
+/* Icon Style */
+.icon {
+    font-size: 26px;
+}
 </style>
 
 </head>
 <body>
 
-<!-- Header -->
-<div class="header">
-   <a href="https://wa.me/919685721765?text=Hello%20sir%20" 
-   class="btn whatsapp" target="_blank">WhatsApp</a>
+<div class="button-wrapper">
+    <div class="btn deposit">
+        <span class="icon">💰</span>
+        Deposit
+    </div>
 
-<a href="https://wa.me/919685721765?text=Hello%20sir%20deposit" 
-   class="btn deposit" target="_blank">Deposit</a>
-
-<a href="https://wa.me/919685721765?text=Hello%20sir%20withdrawal" 
-   class="btn withdrawal" target="_blank">Withdrawal</a>
-</div>
-
-<!-- Bottom Iframe -->
-<div class="iframe-container">
-    <iframe src="https://bnw247.com"></iframe>
+    <div class="btn withdraw">
+        <span class="icon">💳</span>
+        Withdraw
+    </div>
 </div>
 
 </body>
