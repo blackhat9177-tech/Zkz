@@ -11,12 +11,12 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Header Buttons */
+/* Header */
 .button-wrapper {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    padding: 12px;
+    gap: 10px;
+    padding: 10px;
     position: fixed;
     top: 0;
     width: 100%;
@@ -25,9 +25,8 @@ body {
     flex-wrap: wrap;
 }
 
-/* Buttons */
 .btn {
-    padding: 10px 18px;
+    padding: 10px 15px;
     border-radius: 8px;
     font-size: 14px;
     font-weight: bold;
@@ -37,14 +36,13 @@ body {
     text-decoration: none;
 }
 
-/* Colors */
 .deposit { background: #0bbf3f; }
 .withdraw { background: #ff1a1a; }
 
 /* Iframe */
 .iframe-container {
-    margin-top: 70px;
-    height: calc(100vh - 70px);
+    margin-top: 60px;
+    height: calc(100vh - 60px);
 }
 
 iframe {
@@ -66,34 +64,24 @@ iframe {
     align-items: center;
 }
 
-/* Popup Box */
 .popup-content {
     background: #fff;
     width: 90%;
     max-width: 400px;
     border-radius: 12px;
     padding: 20px;
-    animation: fadeIn 0.3s ease;
 }
 
-/* Animation */
-@keyframes fadeIn {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-/* Close */
 .close {
     float: right;
     cursor: pointer;
-    font-size: 18px;
 }
 
-/* Input Section */
+/* Input box */
 .input-box {
+    display: flex;
     border: 1px solid #ddd;
     border-radius: 8px;
-    display: flex;
     overflow: hidden;
     margin-top: 10px;
 }
@@ -105,22 +93,32 @@ iframe {
     outline: none;
 }
 
-/* Submit */
 .submit-btn {
     background: #d90429;
-    color: #fff;
+    color: white;
     border: none;
     padding: 0 20px;
-    font-weight: bold;
     cursor: pointer;
 }
 
 /* Rules */
 .rules {
     font-size: 12px;
-    color: #d90429;
+    color: red;
     margin-top: 15px;
-    line-height: 1.5;
+}
+
+/* UTR Box */
+#utrBox {
+    display: none;
+    padding: 15px;
+    background: #f5f5f5;
+}
+
+#utrBox input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
 }
 </style>
 
@@ -129,14 +127,10 @@ iframe {
 
 <!-- Header -->
 <div class="button-wrapper">
-
     <button class="btn deposit" onclick="openPopup()">💰 Deposit</button>
 
     <a href="https://wa.me/919685721765?text=Hello%20sir%20withdrawal" 
-       class="btn withdraw" target="_blank">
-        💳 Withdraw
-    </a>
-
+       class="btn withdraw" target="_blank">💳 Withdraw</a>
 </div>
 
 <!-- Iframe -->
@@ -144,12 +138,10 @@ iframe {
     <iframe src="https://bnw247.com"></iframe>
 </div>
 
-<!-- Popup -->
+<!-- Deposit Popup -->
 <div class="popup" id="popup" onclick="outsideClick(event)">
     <div class="popup-content">
-        
         <span class="close" onclick="closePopup()">✖</span>
-
         <h3>Amount</h3>
 
         <div class="input-box">
@@ -158,15 +150,28 @@ iframe {
         </div>
 
         <div class="rules">
-        1. Deposit money only in available accounts.<br><br>
-        2. Deposits after 45 min still valid.<br><br>
-        3. Not responsible for old accounts.<br><br>
-        4. Add UTR after deposit.<br><br>
-        5. NEFT: 40 min – 2 hrs.<br><br>
-        6. Payment valid 1 hour after change.
+            1. Deposit only in available accounts.<br><br>
+            2. Deposits after 45 min valid.<br><br>
+            3. Not responsible for old accounts.<br><br>
+            4. Add UTR after deposit.<br><br>
+            5. NEFT: 40 min – 2 hrs.<br><br>
+            6. Valid for 1 hour after change.
         </div>
-
     </div>
+</div>
+
+<!-- UTR FORM -->
+<div id="utrBox">
+    <h3>Submit Payment Details</h3>
+
+    <input type="text" id="utr" placeholder="Enter UTR Number">
+    <input type="number" id="finalAmount" readonly>
+    <input type="file">
+
+    <button onclick="sendToWhatsapp()" 
+            style="width:100%; padding:12px; background:#25D366; color:#fff; border:none;">
+        Submit Details
+    </button>
 </div>
 
 <script>
@@ -190,8 +195,28 @@ function submitDeposit() {
     if(amount){
         let link = `upi://pay?pa=9685721765@paytm&pn=Admin&am=${amount}&cu=INR&tn=Deposit`;
         window.location.href = link;
+
+        setTimeout(() => {
+            closePopup();
+            document.getElementById("utrBox").style.display = "block";
+            document.getElementById("finalAmount").value = amount;
+        }, 2000);
+
     } else {
         alert("Enter amount");
+    }
+}
+
+function sendToWhatsapp() {
+    let utr = document.getElementById("utr").value;
+    let amount = document.getElementById("finalAmount").value;
+
+    if(utr && amount){
+        let msg = `Hello sir,%0AI deposited ₹${amount}%0AUTR: ${utr}`;
+        let url = `https://wa.me/919685721765?text=${msg}`;
+        window.open(url, "_blank");
+    } else {
+        alert("Fill all details");
     }
 }
 </script>
