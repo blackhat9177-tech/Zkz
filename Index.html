@@ -9,54 +9,42 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-   
 }
 
-/* Top Buttons Bar */
+/* Header Buttons */
 .button-wrapper {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    padding: 15px;
+    gap: 15px;
+    padding: 12px;
     position: fixed;
     top: 0;
     width: 100%;
-    background: #1a3da6;
+    background: linear-gradient(135deg, #1a3da6, #0f2462);
     z-index: 1000;
     flex-wrap: wrap;
 }
 
-/* Button Style */
+/* Buttons */
 .btn {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 25px;
-    border-radius: 10px;
-    font-size: 16px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
     font-weight: bold;
     color: white;
-    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
     text-decoration: none;
-    transition: 0.25s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-/* Hover */
-.btn:hover {
-    transform: translateY(-2px);
 }
 
 /* Colors */
-.deposit { background: linear-gradient(135deg, #0bbf3f, #059b30); }
-.withdraw { background: linear-gradient(135deg, #ff1a1a, #cc0000); }
-.upi { background: linear-gradient(135deg, #5f259f, #4a1d7a); }
+.deposit { background: #0bbf3f; }
+.withdraw { background: #ff1a1a; }
 
 /* Iframe */
 .iframe-container {
     margin-top: 70px;
-    width: 100%;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 70px);
 }
 
 iframe {
@@ -65,7 +53,7 @@ iframe {
     border: none;
 }
 
-    /* Popup Background */
+/* Popup */
 .popup {
     display: none;
     position: fixed;
@@ -73,7 +61,7 @@ iframe {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.6);
     justify-content: center;
     align-items: center;
 }
@@ -81,51 +69,73 @@ iframe {
 /* Popup Box */
 .popup-content {
     background: #fff;
-    padding: 20px;
     width: 90%;
     max-width: 400px;
-    border-radius: 10px;
+    border-radius: 12px;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
 }
 
-/* Input */
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-}
-
-/* Submit */
-.submit-btn {
-    width: 100%;
-    padding: 12px;
-    background: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
+/* Animation */
+@keyframes fadeIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
 /* Close */
 .close {
     float: right;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 18px;
+}
+
+/* Input Section */
+.input-box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.input-box input {
+    flex: 1;
+    border: none;
+    padding: 12px;
+    outline: none;
+}
+
+/* Submit */
+.submit-btn {
+    background: #d90429;
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Rules */
+.rules {
+    font-size: 12px;
+    color: #d90429;
+    margin-top: 15px;
+    line-height: 1.5;
 }
 </style>
 
 </head>
 <body>
 
-<!-- Buttons -->
+<!-- Header -->
 <div class="button-wrapper">
 
- 
-<button class="open-btn btn deposit" onclick="openPopup()">        💰 Deposit</button>
+    <button class="btn deposit" onclick="openPopup()">💰 Deposit</button>
+
     <a href="https://wa.me/919685721765?text=Hello%20sir%20withdrawal" 
        class="btn withdraw" target="_blank">
         💳 Withdraw
     </a>
-
-    
 
 </div>
 
@@ -135,26 +145,26 @@ input {
 </div>
 
 <!-- Popup -->
-<div class="popup" id="popup">
+<div class="popup" id="popup" onclick="outsideClick(event)">
     <div class="popup-content">
         
         <span class="close" onclick="closePopup()">✖</span>
 
-        <h3>Deposit</h3>
+        <h3>Amount</h3>
 
-        <label>Amount</label>
-        <input type="number" id="amount" placeholder="Enter amount">
+        <div class="input-box">
+            <input type="number" id="amount" placeholder="Enter amount">
+            <button class="submit-btn" onclick="submitDeposit()">SUBMIT</button>
+        </div>
 
-        <button class="submit-btn" onclick="submitDeposit()">SUBMIT</button>
-
-        <p style="font-size:12px; margin-top:15px;">
-        1. Deposit money only in the below available accounts to get the fastest credits.<br><br>
-        2. Deposits made 45 minutes after account removal are valid.<br><br>
-        3. Site is not responsible for money deposited to old accounts.<br><br>
-        4. After deposit, add your UTR and amount.<br><br>
-        5. NEFT time: 40 minutes to 2 hours.<br><br>
-        6. Payment valid for 1 hour after account change.
-        </p>
+        <div class="rules">
+        1. Deposit money only in available accounts.<br><br>
+        2. Deposits after 45 min still valid.<br><br>
+        3. Not responsible for old accounts.<br><br>
+        4. Add UTR after deposit.<br><br>
+        5. NEFT: 40 min – 2 hrs.<br><br>
+        6. Payment valid 1 hour after change.
+        </div>
 
     </div>
 </div>
@@ -168,6 +178,12 @@ function closePopup() {
     document.getElementById("popup").style.display = "none";
 }
 
+function outsideClick(e) {
+    if (e.target.id === "popup") {
+        closePopup();
+    }
+}
+
 function submitDeposit() {
     let amount = document.getElementById("amount").value;
 
@@ -179,6 +195,6 @@ function submitDeposit() {
     }
 }
 </script>
-    
+
 </body>
 </html>
